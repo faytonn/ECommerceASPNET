@@ -9,10 +9,11 @@
 
            $(document).on('click', '#loadMore', function (e) {
                $.ajax({
-                   url: "/category/loadCategory/",
+                   url: "/category/loadProducts/",
                    type: "GET",
 
                    success: function (response) {
+                       $("#productRow").append(response);
                        console.log(response);
                    },
                    error: function (xhr) {

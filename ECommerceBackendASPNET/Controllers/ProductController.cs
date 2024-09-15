@@ -15,7 +15,7 @@ namespace ECommerceBackendASPNET.Controllers
 		public IActionResult Index()
 		{
 			var categories = _dbContext.Categories.ToList();
-			var products = _dbContext.Products.ToList();
+			var products = _dbContext.Products.Take(4).ToList();
 
 			var viewModel = new HomeViewModel
 			{
@@ -25,7 +25,14 @@ namespace ECommerceBackendASPNET.Controllers
 			return View(viewModel);
 		}
 
-		public IActionResult Details(int? id)
+        public IActionResult LoadProducts()
+        {
+            var products = _dbContext.Products.Include(x => x.Category).Skip(4).ToList();
+
+            return PartialView("_CategoryPartial", products);
+        }
+
+        public IActionResult Details(int? id)
 		{
 			if(id == null)
 			{

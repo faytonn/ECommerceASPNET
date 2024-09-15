@@ -26,14 +26,7 @@ namespace ECommerceBackendASPNET.Controllers
 		}
 
 
-		public IActionResult LoadCategory()
-		{
-			var products = _dbContext.Products.Skip(4).ToList();
-
-			return Json(products);
-		}
-
-		public IActionResult Details(int? id)
+        public IActionResult Details(int? id)
 		{
 			if (id == null)
 			{
