@@ -14,7 +14,7 @@ namespace ECommerceBackendASPNET.Controllers
 		}
 		public IActionResult Index()
 		{
-			var categories = _dbContext.Categories.Take(9).ToList();
+			var categories = _dbContext.Categories.ToList();
 			var products = _dbContext.Products.Take(9).ToList();
 
 			var viewModel = new HomeViewModel

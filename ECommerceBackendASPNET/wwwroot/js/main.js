@@ -1,5 +1,9 @@
+
+
 (function ($) {
     "use strict"
+
+    var skip = 9;
 
     // Mobile Nav toggle
     $('.menu-toggle > a').on('click', function (e) {
@@ -9,11 +13,12 @@
 
            $(document).on('click', '#loadMore', function (e) {
                $.ajax({
-                   url: "/category/loadProducts/",
+                   url: "/category/loadProducts?skip=",
                    type: "GET",
 
                    success: function (response) {
                        $("#productRow").append(response);
+                       skip += 4;
                        console.log(response);
                    },
                    error: function (xhr) {

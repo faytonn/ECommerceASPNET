@@ -25,9 +25,9 @@ namespace ECommerceBackendASPNET.Controllers
 			return View(viewModel);
 		}
 
-        public IActionResult LoadProducts()
+        public IActionResult LoadProducts(int skip)
         {
-            var products = _dbContext.Products.Include(x => x.Category).Skip(4).ToList();
+            var products = _dbContext.Products.Include(x => x.Category).Skip(skip).Take(4).ToList();
 
             return PartialView("_CategoryPartial", products);
         }
@@ -38,9 +38,9 @@ namespace ECommerceBackendASPNET.Controllers
 			{
 				return NotFound();
 			}
-			var product = _dbContext.Products.Include(x=>x.Category).FirstOrDefault(x=>x.Id == id);
+			var products = _dbContext.Products.Include(x=>x.Category).FirstOrDefault(x=>x.Id == id);
 
-			return View(product);
+			return View(products);
 		}
 	}
 }
