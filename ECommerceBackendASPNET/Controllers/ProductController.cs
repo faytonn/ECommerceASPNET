@@ -15,7 +15,7 @@ namespace ECommerceBackendASPNET.Controllers
 		public IActionResult Index()
 		{
 			var categories = _dbContext.Categories.ToList();
-			var products = _dbContext.Products.Take(4).ToList();
+			var products = _dbContext.Products.Take(9).ToList();
 
 			var viewModel = new HomeViewModel
 			{
@@ -25,12 +25,12 @@ namespace ECommerceBackendASPNET.Controllers
 			return View(viewModel);
 		}
 
-        public IActionResult LoadProducts(int skip)
-        {
-            var products = _dbContext.Products.Include(x => x.Category).Skip(skip).Take(4).ToList();
+        //public IActionResult LoadProducts(int skip)
+        //{
+        //    var products = _dbContext.Products.Include(x => x.Category).Skip(skip).Take(9).ToList();
 
-            return PartialView("_CategoryPartial", products);
-        }
+        //    return PartialView("_CategoryPartial", products);
+        //}
 
         public IActionResult Details(int? id)
 		{

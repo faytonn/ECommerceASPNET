@@ -12,18 +12,26 @@ namespace ECommerceBackendASPNET.Controllers
 		{
 			_dbContext = dbContext;
 		}
-		public IActionResult Index()
-		{
-			var categories = _dbContext.Categories.ToList();
-			var products = _dbContext.Products.Take(9).ToList();
+        public async Task<IActionResult> Index()
+        {
+            var categories = await _dbContext.Categories.ToListAsync();
+            var products = await _dbContext.Products.Take(3).Skip(3).ToListAsync();
 
-			var viewModel = new HomeViewModel
-			{
-				Categories = categories,
-				Products = products
-			};
-			return View(viewModel);
-		}
+            var viewModel = new HomeViewModel
+            {
+                Categories = categories,
+                Products = products
+            };
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> LoadProducts()
+        {
+            var products = await _dbContext.Products.Include(x => x.Category).Take(3).ToListAsync();
+
+            return PartialView("_CategoryPartial", products);
+        }
+
 
 
         public IActionResult Details(int? id)

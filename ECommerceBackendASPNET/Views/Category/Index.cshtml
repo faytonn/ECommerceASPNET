@@ -304,8 +304,8 @@
             </div>
         </div>
         <!-- /store products -->
-        
-                <partial name="_CategoryPartial" model="@Model"></partial>
+
+        <partial name="_CategoryPartial" model="@Model"></partial>
         <div class="row justify-content-center">
             <button class="btn btn-primary" style="margin-left:865px" id="loadMore">Load more...</button>
         </div>
@@ -313,6 +313,24 @@
     </div>
     <!-- /store products -->
     <!-- store bottom filter -->
+@*     <script>
+
+        $(document).on('click', '#loadMore', function (e) {
+            $.ajax({
+                url: "/category/loadProducts?skip=",
+                type: "GET",
+
+                success: function (response) {
+                    $("#productRow").append(response);
+                    skip += 4;
+                    console.log(response);
+                },
+                error: function (xhr) {
+
+                }
+            });
+        })
+    </script> *@
 
     <div class="store-filter clearfix">
         <span class="store-qty">Showing 20-100 products</span>
