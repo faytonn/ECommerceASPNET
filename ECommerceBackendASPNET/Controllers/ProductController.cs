@@ -1,4 +1,5 @@
 ﻿using ECommerceBackendASPNET.DataAccessLayer;
+using ECommerceBackendASPNET.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,8 +14,26 @@ namespace ECommerceBackendASPNET.Controllers
 		}
 		public IActionResult Index()
 		{
-			var students = _dbContext.Products.Include(x => x.Category).ToList();
-			return View(students);
+			var categories = _dbContext.Categories.ToList();
+			var products = _dbContext.Products.ToList();
+
+			var viewModel = new HomeViewModel
+			{
+				Categories = categories,
+				Products = products
+			};
+			return View(viewModel);
+		}
+
+		public IActionResult Details(int? id)
+		{
+			if(id == null)
+			{
+				return NotFound();
+			}
+			var product = _dbContext.Products.Include(x=>x.Category).FirstOrDefault(x=>x.Id == id);
+
+			return View(product);
 		}
 	}
 }
