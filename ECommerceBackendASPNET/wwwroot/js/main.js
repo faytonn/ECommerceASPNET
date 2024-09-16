@@ -1,6 +1,28 @@
 (function($) {
 	"use strict"
 
+		var skip = 3;
+
+	$(document).on('click', '#loadMore', function (e) {
+		$.ajax({
+			url: `/category/loadProducts?skip=${skip}`,
+			type: "GET",
+
+			success: function (response) {
+				$("#productRow").append(response);
+				skip += 3;
+				console.log(skip);
+				
+			},
+			error: function (xhr) {
+
+			}
+		});
+	})
+
+
+
+
 	// Mobile Nav toggle
 	$('.menu-toggle > a').on('click', function (e) {
 		e.preventDefault();
@@ -167,21 +189,3 @@
 
 })(jQuery);
 
-@* <script>
-
-	$(document).on('click', '#loadMore', function (e) {
-		$.ajax({
-			url: "/category/loadProducts?skip=",
-			type: "GET",
-
-			success: function (response) {
-				$("#productRow").append(response);
-				skip += 4;
-				console.log(response);
-			},
-			error: function (xhr) {
-
-			}
-		});
-        })
-</script> * @

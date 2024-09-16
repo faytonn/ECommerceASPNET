@@ -15,7 +15,7 @@ namespace ECommerceBackendASPNET.Controllers
         public async Task<IActionResult> Index()
         {
             var categories = await _dbContext.Categories.ToListAsync();
-            var products = await _dbContext.Products.Take(3).Skip(3).ToListAsync();
+            var products = await _dbContext.Products.Take(3)/*.Skip(3)*/.ToListAsync();
 
             var viewModel = new HomeViewModel
             {
@@ -25,11 +25,13 @@ namespace ECommerceBackendASPNET.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> LoadProducts()
+        public async Task<IActionResult> LoadProducts(int skip)
         {
-            var products = await _dbContext.Products.Include(x => x.Category).Take(3).ToListAsync();
+            var products = await _dbContext.Products.Skip(skip).Take(3).Include(x => x.Category).ToListAsync();
 
-            return PartialView("_CategoryPartial", products);
+
+            HomeViewModel vm = new() { Products= products };    
+            return PartialView("_ProductPartial", vm);
         }
 
 
